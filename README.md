@@ -14,8 +14,15 @@ Anyway, enough gum flappin'
 ## Dependencies
 
 Ensure that you download the pytube3 package for this python script to work
+
+pytube3
+
 ```
 pip install pytube3
+```
+pillow also needs to be installed
+```
+pip install pillow
 ```
 
 **NOTE**
