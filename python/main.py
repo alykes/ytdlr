@@ -25,17 +25,25 @@ def ListStreams():
     PreviewThumb.configure(image=img)
     PreviewThumb.image=img
 
+    print(yt.title)
+
+    TitleBox.configure(state='normal')
+    TitleBox.delete(0, END)
+    TitleBox.insert(END, yt.title)
+    TitleBox.configure(state = 'disabled')
+
     audio_flag = check.get()
     print(audio_flag) #for debugging purposes
 
-    for stream in yt.streams.filter(only_audio = audio_flag):
+    for stream in yt.streams.filter(only_audio = audio_flag):#.order_by('resolution').desc():
         if audio_flag:
             StreamItem = f'itag: {stream.itag} Codec: {stream.audio_codec} BitRate: {stream.abr} File Type: {stream.mime_type.split("/")[1]}\n'
             streamLB.insert(END, StreamItem)
         else:
-                if stream.mime_type.split("/")[1]:# == "mp4":# and (stream.resolution == "720p" or stream.resolution == "1080p"):
-                    StreamItem = f'itag: {stream.itag} Resolution: {stream.resolution} FPS: {stream.fps} File Type: {stream.mime_type.split("/")[1]}\n'
-                    streamLB.insert(END, StreamItem)
+            #if stream.mime_type.split("/")[1] == "mp4" or stream.mime_type.split("/")[1] == "webm":# and (stream.resolution == "720p" or stream.resolution == "1080p"):
+            if stream.resolution != None:
+                StreamItem = f'itag: {stream.itag} Resolution: {stream.resolution} FPS: {stream.fps} File Type: {stream.mime_type.split("/")[1]}\n'
+                streamLB.insert(END, StreamItem)
 
 
 def selection(mouse_event):
@@ -105,12 +113,17 @@ TextBox2.grid(row = 2, column = 1, sticky = W)
 TextBox2.insert(0, '.')
 TextBox2.configure(state = "disabled")
 
+TitleBox = Entry(window, width = 30, bg = "lightgrey")
+TitleBox.grid(row = 7, column = 2, sticky = N)
+TitleBox.configure(state = "disabled")
+
+
 AudioCheckbox = Checkbutton(window, text = "Audio Only", bg = "lightgrey", fg = "black", variable = check, onvalue = 1, offvalue = 0)
 AudioCheckbox.grid(row = 4, column = 1, sticky = W)
 
 Button(window, text = "List Streams ", width = 12, command = ListStreams) .grid(row = 4, column = 0, padx=10, pady=5, sticky = W)
 Button(window, text = "Browse", width = 12, command = Browse) .grid(row = 2, column = 2, sticky = W)
-Button(window, text = "Download", width = 10, command = Download) .grid(row = 8, column = 0, padx=10, pady=10, sticky = W)
+Button(window, text = "Download", width = 10, command = Download) .grid(row = 7, column = 0, padx=10, pady=10, sticky = W)
 Button(window, text = "Close", width = 10, command = close) .grid(row = 8, column = 2, padx=10, pady=10, sticky = E)
 
 streamLB = Listbox(window, width=90)
