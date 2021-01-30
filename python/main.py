@@ -3,11 +3,13 @@ import requests
 from tkinter import *
 from tkinter import filedialog
 from pytube import YouTube
+from pytube.cli import on_progress
 from PIL import ImageTk, Image
 from urllib.request import urlopen
 #from pytube.helpers import safe_filename
 
 def ListStreams():
+
     url.set(TextBox.get())
     #I need to include a check on the text entered to ensure it has a www.youtube.com
     yt = YouTube(url.get())
@@ -19,7 +21,7 @@ def ListStreams():
     response = requests.get(img_url)
     img_data = response.content
     tmp_img = Image.open(BytesIO(img_data))
-    resized = tmp_img.resize((180,100),Image.ANTIALIAS)
+    resized = tmp_img.resize((180,120),Image.ANTIALIAS)
     img = ImageTk.PhotoImage(resized)
 
     PreviewThumb.configure(image=img)
@@ -44,6 +46,11 @@ def ListStreams():
             if stream.resolution != None:
                 StreamItem = f'itag: {stream.itag} Resolution: {stream.resolution} FPS: {stream.fps} File Type: {stream.mime_type.split("/")[1]}\n'
                 streamLB.insert(END, StreamItem)
+
+def CopyPasta(mouse_event):
+    if TextBox.get() != window.clipboard_get():
+        TextBox.delete(0, END)
+        TextBox.insert(END, window.clipboard_get())
 
 
 def selection(mouse_event):
@@ -71,10 +78,12 @@ def Browse():
 
 def Download():
     if streamLB.size() > 0:
-        ytDL = YouTube(url.get())
+        ytDL = YouTube(url.get(), on_progress_callback=on_progress)
         fname = ytDL.title
         print('Downloading: ', chosen.get())
+
         ytDL.streams.get_by_itag(chosen.get()).download(output_path = TextBox2.get(), filename = fname)
+
     else:
         print("Nothing in the Listbox yet!")
 
@@ -84,28 +93,32 @@ def close():
 
 
 window = Tk()
+
+icon = PhotoImage(file = "../assets/003-download.png")
+window.iconphoto(False, icon)
 window.title("Youtube Downloader by Alykes")
 window.configure(background = "lightgrey")
 
+#Set up tkinter variables
 check = IntVar()
 chosen = StringVar()
 url = StringVar()
-#thumbnail = StringVar()
 
 logo = PhotoImage(file = "../assets/hacker.gif")
 Label (window, image = logo, bg = "lightgrey") .grid(row = 0, column = 0, sticky = W)
 
 ####
 thumb = Image.open("../assets/mqdefault.jpg")
-thumb = thumb.resize((150, 100), Image.ANTIALIAS)
+thumb = thumb.resize((180, 120), Image.ANTIALIAS)
 ytthumb = ImageTk.PhotoImage(thumb)
 ####
-PreviewThumb = Label (window, bg = "lightgrey", image = ytthumb, width = 180, height = 100)
+PreviewThumb = Label (window, bg = "lightgrey", image = ytthumb, width = 180, height = 120)
 PreviewThumb.grid(row = 6, column = 2, padx=10, pady=10)
 
 Label (window, text="YouTube URL: ", bg = "lightgrey", fg = "black", font = "none 10") .grid(row = 1, column = 0, sticky = W)
 TextBox = Entry(window, width = 70, bg = "white")
 TextBox.grid(row = 1, column = 1, sticky = W)
+TextBox.focus_set()
 
 Label (window, text="Download Folder:  ", bg = "lightgrey", fg = "black", font = "none 10") .grid(row = 2, column = 0, sticky = W)
 TextBox2 = Entry(window, width = 70, bg = "white")#, state = 'disabled')
@@ -123,12 +136,14 @@ AudioCheckbox.grid(row = 4, column = 1, sticky = W)
 
 Button(window, text = "List Streams ", width = 12, command = ListStreams) .grid(row = 4, column = 0, padx=10, pady=5, sticky = W)
 Button(window, text = "Browse", width = 12, command = Browse) .grid(row = 2, column = 2, sticky = W)
-Button(window, text = "Download", width = 10, command = Download) .grid(row = 7, column = 0, padx=10, pady=10, sticky = W)
+Button(window, text = "Download", width = 10, command = Download) .grid(row = 8, column = 2, padx=10, pady=10, sticky = W)
 Button(window, text = "Close", width = 10, command = close) .grid(row = 8, column = 2, padx=10, pady=10, sticky = E)
 
 streamLB = Listbox(window, width=90)
 streamLB.grid(row = 6, column = 0, columnspan = 2, padx=10, pady=10, sticky = W)
 
+#Events
 streamLB.bind("<ButtonRelease-1>", selection)
+TextBox.bind("<ButtonRelease-1>", CopyPasta)
 
 window.mainloop()
