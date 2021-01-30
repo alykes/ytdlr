@@ -48,10 +48,11 @@ def ListStreams():
                 streamLB.insert(END, StreamItem)
 
 def CopyPasta(mouse_event):
-    if TextBox.get() != window.clipboard_get():
+    if TextBox.get() != window.clipboard_get() and PastaCheck.get() == 0:
         TextBox.delete(0, END)
         TextBox.insert(END, window.clipboard_get())
 
+    print(PastaCheck.get()) #for debugging purposes
 
 def selection(mouse_event):
     if streamLB.size() > 0:
@@ -101,6 +102,7 @@ window.configure(background = "lightgrey")
 
 #Set up tkinter variables
 check = IntVar()
+PastaCheck = IntVar()
 chosen = StringVar()
 url = StringVar()
 
@@ -112,15 +114,15 @@ thumb = Image.open("../assets/mqdefault.jpg")
 thumb = thumb.resize((180, 120), Image.ANTIALIAS)
 ytthumb = ImageTk.PhotoImage(thumb)
 ####
-PreviewThumb = Label (window, bg = "lightgrey", image = ytthumb, width = 180, height = 120)
+PreviewThumb = Label (window, bg = "lightgrey", image = ytthumb, relief = GROOVE, width = 180, height = 120)
 PreviewThumb.grid(row = 6, column = 2, padx=10, pady=10)
 
-Label (window, text="YouTube URL: ", bg = "lightgrey", fg = "black", font = "none 10") .grid(row = 1, column = 0, sticky = W)
+Label (window, text="YouTube URL: ", bg = "lightgrey", fg = "black", font = "Tahoma 10") .grid(row = 1, column = 0, sticky = W)
 TextBox = Entry(window, width = 70, bg = "white")
 TextBox.grid(row = 1, column = 1, sticky = W)
 TextBox.focus_set()
 
-Label (window, text="Download Folder:  ", bg = "lightgrey", fg = "black", font = "none 10") .grid(row = 2, column = 0, sticky = W)
+Label (window, text="Download Folder:  ", bg = "lightgrey", fg = "black", font = "Tahoma 10") .grid(row = 2, column = 0, sticky = W)
 TextBox2 = Entry(window, width = 70, bg = "white")#, state = 'disabled')
 TextBox2.grid(row = 2, column = 1, sticky = W)
 TextBox2.insert(0, '.')
@@ -130,6 +132,8 @@ TitleBox = Entry(window, width = 30, bg = "lightgrey")
 TitleBox.grid(row = 7, column = 2, sticky = N)
 TitleBox.configure(state = "disabled")
 
+PastaCheckbox = Checkbutton(window, text = "Disable Auto-Paste", bg = "lightgrey", fg = "black", variable = PastaCheck, onvalue = 1, offvalue = 0)
+PastaCheckbox.grid(row = 1, column = 2, sticky = W)
 
 AudioCheckbox = Checkbutton(window, text = "Audio Only", bg = "lightgrey", fg = "black", variable = check, onvalue = 1, offvalue = 0)
 AudioCheckbox.grid(row = 4, column = 1, sticky = W)
