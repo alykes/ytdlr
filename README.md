@@ -40,3 +40,7 @@ There is currently a known issue with the currently available version of pytube3
 pip3 uninstall -y pytube3
 pip3 install git+https://github.com/nficano/pytube
 ```
+
+
+
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
