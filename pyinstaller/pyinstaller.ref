@@ -1,0 +1,1 @@
+pyinstaller --noconfirm --onefile -n ytdlr-v1.0.0 --windowed --add-data "./assets/003-download.png;./assets" --add-data "./assets/hacker.gif;./assets" --add-data "./assets/mqdefault.jpg;./assets"  "main.py"

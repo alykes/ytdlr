@@ -1,1 +1,4 @@
-./python/image.py
+./image.py
+./dist/*
+./__pycache__/*
+./pyinstaller/ytdlr-v1.0.0.spec

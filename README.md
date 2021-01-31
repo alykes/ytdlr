@@ -20,17 +20,17 @@ Ensure that you download the packages below for this python script to run
 _pytube3_
 
 ```
-pip install pytube3
+pip3 install pytube3
 ```
 
 _pillow_
 ```
-pip install pillow
+pip3 install pillow
 ```
 
 _requests_
 ```
-pip install requests
+pip3 install requests
 ```
 
 _**NOTE**_
