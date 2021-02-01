@@ -45,8 +45,7 @@ def ListStreams():
         if audio_flag:
             StreamItem = f'itag: {stream.itag} Codec: {stream.audio_codec} BitRate: {stream.abr} File Type: {stream.mime_type.split("/")[1]}\n'
             streamLB.insert(END, StreamItem)
-        else:
-            if stream.resolution != None:
+        elif stream.resolution != None:
                 StreamItem = f'itag: {stream.itag} Resolution: {stream.resolution} FPS: {stream.fps} File Type: {stream.mime_type.split("/")[1]}\n'
                 streamLB.insert(END, StreamItem)
 
