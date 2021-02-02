@@ -79,8 +79,11 @@ def Download():
     if streamLB.size() > 0 and chosen.get() != 0:
         ytDL = YouTube(url.get(), on_progress_callback=on_progress)
         fname = ytDL.title
-        ytDL.streams.get_by_itag(chosen.get()).download(output_path = TextBox2.get(), filename = fname)
-        showinfo("Window", "Download Complete!")
+        try:
+            ytDL.streams.get_by_itag(chosen.get()).download(output_path = TextBox2.get(), filename = fname)
+            showinfo("Window", "Download Completed!")
+        except:
+            showinfo("Window", "FAILURE: Download did not complete!")
 
 def close():
     window.destroy()
