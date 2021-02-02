@@ -40,7 +40,7 @@ def ListStreams():
     TitleBox.insert(END, yt.title)
     TitleBox.configure(state = 'disabled')
 
-    audio_flag = check.get()
+    audio_flag = checkAF.get()
 
     for stream in yt.streams.filter(only_audio = audio_flag):
         if audio_flag:
@@ -59,8 +59,8 @@ def CopyPasta(mouse_event):
 
 def selection(mouse_event):
     if streamLB.size() > 0:
-        item = streamLB.get(ANCHOR)
-        arr = item.split()
+        LBitem = streamLB.get(ANCHOR)
+        arr = LBitem.split()
         itag = int(arr[1])
 
         chosen.set(itag)
@@ -101,7 +101,7 @@ window.title(string = WindowTitle)
 window.configure(background = "lightgrey")
 
 #Set up tkinter variables
-check = IntVar()
+checkAF = IntVar()
 PastaCheck = IntVar()
 chosen = IntVar()
 url = StringVar()
@@ -138,7 +138,7 @@ TitleBox.configure(state = "disabled")
 PastaCheckbox = Checkbutton(window, text = "Disable Auto-Paste", bg = "lightgrey", fg = "black", variable = PastaCheck, onvalue = 1, offvalue = 0)
 PastaCheckbox.grid(row = 1, column = 2, sticky = W)
 
-AudioCheckbox = Checkbutton(window, text = "Audio Only", bg = "lightgrey", fg = "black", variable = check, onvalue = 1, offvalue = 0)
+AudioCheckbox = Checkbutton(window, text = "Audio Only", bg = "lightgrey", fg = "black", variable = checkAF, onvalue = 1, offvalue = 0)
 AudioCheckbox.grid(row = 4, column = 1, sticky = W)
 
 #Window buttons
