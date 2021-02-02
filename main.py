@@ -85,18 +85,19 @@ def Download():
         except:
             showinfo("Window", "FAILURE: Download did not complete!")
 
-def close():
+
+def Close():
     window.destroy()
     exit()
 
-
-
+version = "1.1.0"
 window = Tk()
 
 #Window Title Bar Text
 icon = PhotoImage(file = resource_path("./assets/003-download.png"))
 window.iconphoto(False, icon)
-window.title("Youtube Downloader by Alykes - [v1.0.0]")
+WindowTitle = 'Youtube Downloader by Alykes - [' + version + ']'
+window.title(string = WindowTitle)
 window.configure(background = "lightgrey")
 
 #Set up tkinter variables
@@ -109,7 +110,7 @@ url = StringVar()
 logo = PhotoImage(file = resource_path("./assets/hacker.gif"))
 Label (window, image = logo, bg = "lightgrey") .grid(row = 0, column = 0, sticky = W)
 
-#Default Thumbnail preview
+#Default Thumbnail preview (shameless plug)
 thumb = Image.open(resource_path("./assets/mqdefault.jpg"))
 thumb = thumb.resize((180, 120), Image.ANTIALIAS)
 ytthumb = ImageTk.PhotoImage(thumb)
@@ -133,9 +134,6 @@ TitleBox = Entry(window, width = 30, bg = "lightgrey")
 TitleBox.grid(row = 7, column = 2, sticky = N)
 TitleBox.configure(state = "disabled")
 
-#statusLabel = Label(window, text="Download Complete!", bg = "lightgrey", fg = "black", font = "Tahoma 10")
-#statusLabel.grid(row = 8, column = 1, padx=10, pady=10, sticky = E)
-
 #Window CheckBoxes
 PastaCheckbox = Checkbutton(window, text = "Disable Auto-Paste", bg = "lightgrey", fg = "black", variable = PastaCheck, onvalue = 1, offvalue = 0)
 PastaCheckbox.grid(row = 1, column = 2, sticky = W)
@@ -147,7 +145,7 @@ AudioCheckbox.grid(row = 4, column = 1, sticky = W)
 Button(window, text = "List Streams ", width = 12, command = ListStreams) .grid(row = 4, column = 0, padx=10, pady=5, sticky = W)
 Button(window, text = "Browse", width = 12, command = Browse) .grid(row = 2, column = 2, sticky = W)
 Button(window, text = "Download", width = 10, command = Download) .grid(row = 8, column = 2, padx=10, pady=10, sticky = W)
-Button(window, text = "Close", width = 10, command = close) .grid(row = 8, column = 2, padx=10, pady=10, sticky = E)
+Button(window, text = "Close", width = 10, command = Close) .grid(row = 8, column = 2, padx=10, pady=10, sticky = E)
 
 #Window ListBox
 streamLB = Listbox(window, width=90)
