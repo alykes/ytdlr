@@ -3,6 +3,7 @@ import os
 import requests
 from tkinter import *
 from tkinter import filedialog
+from tkinter.messagebox import showinfo
 from pytube import YouTube
 from pytube.cli import on_progress
 from PIL import ImageTk, Image
@@ -79,7 +80,7 @@ def Download():
         ytDL = YouTube(url.get(), on_progress_callback=on_progress)
         fname = ytDL.title
         ytDL.streams.get_by_itag(chosen.get()).download(output_path = TextBox2.get(), filename = fname)
-
+        showinfo("Window", "Download Complete!")
 
 def close():
     window.destroy()
@@ -128,6 +129,9 @@ TextBox2.configure(state = "disabled")
 TitleBox = Entry(window, width = 30, bg = "lightgrey")
 TitleBox.grid(row = 7, column = 2, sticky = N)
 TitleBox.configure(state = "disabled")
+
+#statusLabel = Label(window, text="Download Complete!", bg = "lightgrey", fg = "black", font = "Tahoma 10")
+#statusLabel.grid(row = 8, column = 1, padx=10, pady=10, sticky = E)
 
 #Window CheckBoxes
 PastaCheckbox = Checkbutton(window, text = "Disable Auto-Paste", bg = "lightgrey", fg = "black", variable = PastaCheck, onvalue = 1, offvalue = 0)
