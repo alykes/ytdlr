@@ -3,7 +3,7 @@ import os
 import requests
 from tkinter import *
 from tkinter import filedialog
-from tkinter.messagebox import showinfo
+from tkinter.messagebox import showinfo, showwarning
 from pytube import YouTube
 from pytube.cli import on_progress
 from PIL import ImageTk, Image
@@ -83,7 +83,7 @@ def Download():
             ytDL.streams.get_by_itag(chosen.get()).download(output_path = TextBox2.get(), filename = fname)
             showinfo("Window", "Download Completed!")
         except:
-            showinfo("Window", "FAILURE: Download did not complete!")
+            showwarning("Window", "FAILURE: Download did not complete!")
 
 
 def Close():
