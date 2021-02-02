@@ -90,7 +90,7 @@ def Close():
     window.destroy()
     exit()
 
-version = "1.1.0"
+version = "1.1.2"
 window = Tk()
 
 #Window Title Bar Text
