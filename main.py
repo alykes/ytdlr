@@ -2,7 +2,7 @@ from io import BytesIO
 import os
 import requests
 from tkinter import *
-from tkinter import filedialog
+from tkinter import filedialog, ttk
 from tkinter.messagebox import showinfo, showwarning
 from pytube import YouTube
 from pytube.cli import on_progress
@@ -77,7 +77,7 @@ def Browse():
 
 def Download():
     if streamLB.size() > 0 and chosen.get() != 0:
-        ytDL = YouTube(url.get(), on_progress_callback=on_progress)
+        ytDL = YouTube(url.get(), on_progress_callback=progress_update)
         fname = ytDL.title
         try:
             ytDL.streams.get_by_itag(chosen.get()).download(output_path = TextBox2.get(), filename = fname)
@@ -86,11 +86,17 @@ def Download():
             showwarning("Window", "FAILURE: Download did not complete!")
 
 
+def progress_update(stream, chunk, bytes_remaining):
+    RatioComplete = ((stream.filesize - bytes_remaining)/stream.filesize)
+    progress_bar['value'] = RatioComplete
+    window.update_idletasks()
+
+
 def Close():
     window.destroy()
     exit()
 
-version = "1.1.2"
+version = "1.2.0"
 window = Tk()
 
 #Window Title Bar Text
@@ -134,6 +140,8 @@ TitleBox = Entry(window, width = 30, bg = "lightgrey")
 TitleBox.grid(row = 7, column = 2, sticky = N)
 TitleBox.configure(state = "disabled")
 
+Label (window, text="Download Progress:", bg = "lightgrey", fg = "black", font = "Tahoma 10") .grid(row = 8, column = 0, sticky = W)
+
 #Window CheckBoxes
 PastaCheckbox = Checkbutton(window, text = "Disable Auto-Paste", bg = "lightgrey", fg = "black", variable = PastaCheck, onvalue = 1, offvalue = 0)
 PastaCheckbox.grid(row = 1, column = 2, sticky = W)
@@ -148,8 +156,12 @@ Button(window, text = "Download", width = 10, command = Download) .grid(row = 8,
 Button(window, text = "Close", width = 10, command = Close) .grid(row = 8, column = 2, padx=10, pady=10, sticky = E)
 
 #Window ListBox
-streamLB = Listbox(window, width=90)
+streamLB = Listbox(window, width=88)
 streamLB.grid(row = 6, column = 0, columnspan = 2, padx=10, pady=10, sticky = W)
+
+#Progress Bar
+progress_bar = ttk.Progressbar(window, orient = "horizontal", mode = "determinate", length = 425, maximum = 1, value = 0)
+progress_bar.grid(row = 8, column = 1, sticky = W)
 
 #Events
 streamLB.bind("<ButtonRelease-1>", selection)
