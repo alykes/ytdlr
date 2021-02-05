@@ -19,8 +19,13 @@ def resource_path(relative_path):
 def ListStreams():
     chosen.set(0)
     url.set(TextBox.get())
-    #I need to include a check on the text entered to ensure it has a www.youtube.com
-    yt = YouTube(url.get())
+
+    if "www.youtube.com/watch?v=" or "youtu.be" in url.get():
+        try:
+            yt = YouTube(url.get())
+        except:
+            showwarning("Window", "WARNING: Unable to retrieve streams. Please check the URL.")
+            return None
     #yt = YouTube('https://www.youtube.com/watch?v=yUdxHAhj8l8')
     streamLB.delete(0, END)
 
@@ -81,9 +86,11 @@ def Download():
         fname = ytDL.title
         try:
             ytDL.streams.get_by_itag(chosen.get()).download(output_path = TextBox2.get(), filename = fname)
-            showinfo("Window", "Download Completed!")
         except:
-            showwarning("Window", "FAILURE: Download did not complete!")
+            showwarning("Window", "WARNING: Download did not complete!")
+            return None
+
+        showinfo("Window", "Download Completed!")
 
 
 def progress_update(stream, chunk, bytes_remaining):
@@ -96,7 +103,8 @@ def Close():
     window.destroy()
     exit()
 
-version = "1.2.0"
+
+version = "1.2.1"
 window = Tk()
 
 #Window Title Bar Text
@@ -166,5 +174,6 @@ progress_bar.grid(row = 8, column = 1, sticky = W)
 #Events
 streamLB.bind("<ButtonRelease-1>", selection)
 TextBox.bind("<ButtonRelease-1>", CopyPasta)
+#TextBox.bind("<Return>", ListStreams)
 
 window.mainloop()
