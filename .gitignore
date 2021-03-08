@@ -1,4 +1,4 @@
-./image.py
-./dist/*
-./__pycache__/*
-./pyinstaller/*
+image.py
+__pycache__/*
+dist/*
+pyinstaller/*
