@@ -35,7 +35,7 @@ pip3 install requests
 
 _**NOTE**_
 
-There is currently a known issue with the currently available version of pytube3 on pip, your best bet for getting pytube3 to run is by installing the package using the method below
+There is a known issue with the currently available version of pytube3 on pip, your best bet for getting pytube3 to run is by installing the package using the method below
 ```
 pip3 uninstall -y pytube3
 pip3 install git+https://github.com/nficano/pytube
