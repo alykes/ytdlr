@@ -104,7 +104,7 @@ def Close():
     exit()
 
 
-version = "1.2.2"
+version = "1.2.3"
 window = Tk()
 
 #Window Title Bar Text
