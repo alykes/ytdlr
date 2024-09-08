@@ -1,7 +1,7 @@
 from io import BytesIO
 import os
 import requests
-from tkinter import *
+from tkinter import * #This is lazy, need to change it when I have time.
 from tkinter import filedialog, ttk
 from tkinter.messagebox import showinfo, showwarning
 from pytube import YouTube
