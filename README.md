@@ -1,4 +1,4 @@
-### Youtube Downloader (ytdlr)
+# Youtube Downloader (ytdlr)
 
 Just Another Front End for Pytube3 (JAFE-FPT3)
 
@@ -17,30 +17,34 @@ Anyway, enough gum flappin'
 
 Ensure that you download the packages below for this python script to run
 
-_pytube3_
+- _pytube3_
 
-```
+```powershell
 pip3 install pytube3
 ```
 
-_pillow_
-```
+- _pillow_
+  
+```powershell
 pip3 install pillow
 ```
 
-_requests_
-```
+- _requests_
+
+```powershell
 pip3 install requests
 ```
 
 _**NOTE**_
 
 There is a known issue with the currently available version of pytube3 on pip, your best bet for getting pytube3 to run is by installing the package using the method below
-```
-pip3 uninstall -y pytube3
-pip3 install git+https://github.com/nficano/pytube
+
+```powershell
+pip install git+https://github.com/pytube/pytube
 ```
 
+## Fix for cipher.py
 
+[Fix cipher.py](https://github.com/pytube/pytube/issues/1954#issuecomment-2283984433)
 
 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
