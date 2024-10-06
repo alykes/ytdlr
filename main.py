@@ -1,11 +1,12 @@
 import os
 from io import BytesIO
+import sys
 
 import requests
 from PIL import Image, ImageTk
 from pytube import YouTube
 from pytube.cli import on_progress
-from tkinter import Tk, Label, Entry, Button, Listbox, Checkbutton, IntVar, StringVar, W, END, NORMAL, DISABLED
+from tkinter import Tk, Label, Entry, Button, Listbox, Checkbutton, IntVar, StringVar, N, E, S, W, END, NORMAL, DISABLED, GROOVE
 from tkinter import filedialog, ttk
 from tkinter.messagebox import showinfo, showwarning
 
@@ -51,7 +52,7 @@ def list_streams():
         response = requests.get(img_url)
         img_data = response.content
         tmp_img = Image.open(BytesIO(img_data))
-        resized = tmp_img.resize((180, 120), Image.ANTIALIAS)
+        resized = tmp_img.resize((180, 120), Image.Resampling.LANCZOS)
         img = ImageTk.PhotoImage(resized)
 
         PreviewThumb.configure(image=img)
@@ -156,7 +157,7 @@ version = "1.2.4"
 window = Tk()
 
 #Window Title Bar Text
-icon = PhotoImage(file = resource_path("./assets/003-download.png"))
+icon = ImageTk.PhotoImage(file = resource_path("./assets/003-download.png"))
 window.iconphoto(False, icon)
 WindowTitle = 'Youtube Downloader by Alykes - [' + version + ']'
 window.title(string = WindowTitle)
@@ -169,12 +170,12 @@ chosen = IntVar()
 url = StringVar()
 
 # Window Logo Placeholder
-logo = PhotoImage(file=resource_path("./assets/hacker.gif"))
+logo = ImageTk.PhotoImage(file=resource_path("./assets/hacker.gif"))
 Label(window, image=logo, bg="lightgrey").grid(row=0, column=0, sticky=W)
 
 # Default Thumbnail preview (shameless plug)
 thumb = Image.open(resource_path("./assets/mqdefault.jpg"))
-thumb = thumb.resize((180, 120), Image.ANTIALIAS)
+thumb = thumb.resize((180, 120), Image.Resampling.LANCZOS)
 ytthumb = ImageTk.PhotoImage(thumb)
 
 PreviewThumb = Label(

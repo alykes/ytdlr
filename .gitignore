@@ -2,3 +2,6 @@ image.py
 __pycache__/*
 dist/*
 pyinstaller/*
+.venv/
+.github/
+
