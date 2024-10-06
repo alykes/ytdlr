@@ -6,7 +6,7 @@ import requests
 from PIL import Image, ImageTk
 from pytube import YouTube
 from pytube.cli import on_progress
-from tkinter import Tk, Label, Entry, Button, Listbox, Checkbutton, IntVar, StringVar, N, E, S, W, END, NORMAL, DISABLED, GROOVE
+from tkinter import Tk, Label, Entry, Button, Listbox, Checkbutton, IntVar, StringVar, N, E, S, W, END, NORMAL, DISABLED, GROOVE, ANCHOR
 from tkinter import filedialog, ttk
 from tkinter.messagebox import showinfo, showwarning
 
