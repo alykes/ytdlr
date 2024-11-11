@@ -4,7 +4,7 @@
 #requests==2.27.1
 #urllib3==1.26.7
 Pillow==11.0.0
-PyInstaller==6.10.0
+PyInstaller==6.11.1
 pytube==15.0.0
 requests==2.32.3
 urllib3==2.2.3
