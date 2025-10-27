@@ -6,7 +6,7 @@
 Pillow==11.3.0
 PyInstaller==6.15.0
 pytube==15.0.0
-yt_dlp==2025.7.21
+yt_dlp==2025.10.22
 requests==2.32.4
 urllib3==2.5.0
 
